@@ -1,0 +1,18 @@
+#!/bin/bash
+# rerun when the AUR list changes: {{ include "packages/aur.txt" | sha256sum }}
+set -euo pipefail
+{{ if ne .chezmoi.os "linux" -}}
+exit 0
+{{ end -}}
+
+if ! command -v omarchy >/dev/null 2>&1; then
+  echo "omarchy not on PATH; skip AUR packages" >&2
+  exit 0
+fi
+
+mapfile -t pkgs < <(grep -vE '^\s*(#|$)' "{{ .chezmoi.sourceDir }}/packages/aur.txt")
+if ((${#pkgs[@]} == 0)); then
+  exit 0
+fi
+
+omarchy pkg aur add "${pkgs[@]}"

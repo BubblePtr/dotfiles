@@ -1,0 +1,6 @@
+[Hotkey]
+# Trigger Keys:切换输入法(中英文切换)
+# 0 = 默认 Ctrl+Space;1 = 轻点 Shift(单独按下松开,不与其他键组合)
+[Hotkey/TriggerKeys]
+0=Control+space
+1=Shift

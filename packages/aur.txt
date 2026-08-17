@@ -1,0 +1,4 @@
+ttf-ioskeley-mono-unhinted
+ttf-sarasa-gothic-nerd-fonts
+ttf-sarasa-ui-sc
+google-chrome
