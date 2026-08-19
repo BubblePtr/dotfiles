@@ -65,12 +65,13 @@ chezmoi diff
 
 | 收进仓库 | 不收 |
 |---|---|
-| `hypr/input.lua`（flat 加速） | 库存 Hyprland / nvim / zshrc / starship |
+| `hypr/input.lua`（flat 加速） | 库存 Hyprland / nvim / zshrc |
 | `hypr/monitors.lua`（按 machine 模板） | `shell.json`（Omarchy 自己会写） |
 | `fontconfig/fonts.conf` | 浏览器 profile、`pulse/` |
 | `git/config`（名字邮箱） | SSH 私钥、`~/.grok/auth.json` |
 | `omarchy/shell.toml`、`defaults/agent` | 16MB 壁纸 |
 | `mise/config.toml` | Rime 词库 |
+| `starship.toml`（plain-text-symbols + `command_timeout`） | Codex 专用 `starship-codex.toml` |
 | fcitx5 的 profile / 快捷键 | 整份 `~/.config` |
 | AUR 包列表 | |
 
