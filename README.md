@@ -24,6 +24,30 @@ chezmoi init --apply git@github.com:BubblePtr/dotfiles.git
 
 - 装 AUR 字体（Ioskeley / Sarasa）和 Chrome
 - clone Ghostty，并在 Linux 上把 `local.conf` 链到 `omarchy.conf`
+- 把 `statusLine` 一段合并进 `~/.claude/settings.json`（需要 `jq`，以及 `bun` 或 `node` 之一；其余 key 原样保留）
+
+## 只同步一部分
+
+`apply` / `diff` / `status` 都接受目标路径，只处理点名的那部分，其余条目原样不动：
+
+```bash
+chezmoi diff  ~/.claude      # 先看
+chezmoi apply ~/.claude      # 只应用 Claude Code 状态栏
+```
+
+目录级 apply 会连带执行该目录内的 `run_` 脚本（`dot_claude/run_onchange_after_wire-statusline.sh.tmpl`），但不会碰 `clone-ghostty` / `linux-aur-packages` 这些根目录脚本。
+
+拉更新时用 `chezmoi git pull -- --rebase` + 上面的定向 apply，替代会全量应用的 `chezmoi update`。
+
+想按机器长期收窄范围，就在 `.chezmoiignore` 里加 OS 守卫（模板会被求值）：
+
+```
+{{ if ne .chezmoi.os "linux" }}
+.config/**
+clone-ghostty.sh
+linux-aur-packages.sh
+{{ end }}
+```
 
 然后按需：
 
@@ -72,6 +96,7 @@ chezmoi diff
 | `omarchy/shell.toml`、`defaults/agent` | 16MB 壁纸 |
 | `mise/config.toml` | Rime 词库 |
 | `starship.toml`（plain-text-symbols + `command_timeout`） | Codex 专用 `starship-codex.toml` |
+| `.claude/statusline.mjs`（Claude Code 状态栏） | 整份 `~/.claude/settings.json`（只合并 `statusLine` 一个 key） |
 | fcitx5 的 profile / 快捷键 | 整份 `~/.config` |
 | AUR 包列表 | |
 
