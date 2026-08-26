@@ -37,9 +37,7 @@ chezmoi apply ~/.claude      # 只应用 Claude Code 状态栏
 
 目录级 apply 会连带执行该目录内的 `run_` 脚本（`dot_claude/run_onchange_after_wire-statusline.sh.tmpl`），但不会碰 `clone-ghostty` / `linux-aur-packages` 这些根目录脚本。
 
-拉更新时用 `chezmoi git pull -- --rebase` + 上面的定向 apply，替代会全量应用的 `chezmoi update`。
-
-想按机器长期收窄范围，就在 `.chezmoiignore` 里加 OS 守卫（模板会被求值）：
+`.chezmoiignore` 已内置 OS 守卫（模板会被求值）：
 
 ```
 {{ if ne .chezmoi.os "linux" }}
@@ -48,6 +46,10 @@ clone-ghostty.sh
 linux-aur-packages.sh
 {{ end }}
 ```
+
+也就是**非 Linux 机器上只管 `~/.claude`**，`.config/**` 和 `clone-ghostty` / `linux-aur-packages` 两个根脚本一律忽略。所以在 macOS 上直接 `chezmoi update` / `chezmoi apply` 是安全的，不会把 Hyprland / fcitx5 那套写进 `~/.config`。
+
+Linux 上守卫不生效（条件为假），全量 apply 行为不变；想在某台机器上再收窄，继续往 `.chezmoiignore` 里加条件即可。
 
 然后按需：
 
