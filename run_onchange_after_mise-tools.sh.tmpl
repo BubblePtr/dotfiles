@@ -1,0 +1,15 @@
+#!/bin/bash
+# rerun when the tool list changes: {{ include "packages/mise.txt" | sha256sum }}
+set -euo pipefail
+
+if ! command -v mise >/dev/null 2>&1; then
+  echo "mise not on PATH; skip global tools" >&2
+  exit 0
+fi
+
+mapfile -t tools < <(grep -vE '^\s*(#|$)' "{{ .chezmoi.sourceDir }}/packages/mise.txt")
+if ((${#tools[@]} == 0)); then
+  exit 0
+fi
+
+mise use -g "${tools[@]}"
