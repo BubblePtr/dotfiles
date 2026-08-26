@@ -1,3 +1,12 @@
 README.md
 packages/**
 .git*
+
+{{/* Omarchy/Hyprland-only targets: keep them off non-Linux machines, where a
+     bare `chezmoi apply` would otherwise write Linux configs into ~/.config.
+     `.claude` stays managed everywhere. */}}
+{{ if ne .chezmoi.os "linux" }}
+.config/**
+clone-ghostty.sh
+linux-aur-packages.sh
+{{ end }}
