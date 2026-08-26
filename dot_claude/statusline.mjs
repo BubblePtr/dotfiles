@@ -22,9 +22,16 @@ try {
 
 const parts = [];
 
-// Model
+// Model (+ reasoning effort, when the model exposes one)
 const model = data.model?.display_name ?? data.model?.id;
-if (model) parts.push(c(CYAN, `[${model}]`));
+if (model) {
+  const effort = data.effort?.level;
+  parts.push(
+    effort
+      ? c(CYAN, `[${model}`) + c(GRAY, ` ${effort}`) + c(CYAN, "]")
+      : c(CYAN, `[${model}]`),
+  );
+}
 
 // Context bar (native percentage on CC v2.1.6+, else derive from token counts)
 const cw = data.context_window ?? {};
