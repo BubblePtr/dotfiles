@@ -2,6 +2,13 @@ README.md
 packages/**
 .git*
 
+{{/* Machine-local state rewritten by the programs themselves, not synced across
+     machines: omarchy-default-agent runs `mise use -g` (rewriting mise/config.toml)
+     and writes the agent name to omarchy/defaults/agent on every switch. Tracking
+     them only produces meaningless drift; packages/mise.txt carries the intent. */}}
+.config/mise/config.toml
+.config/omarchy/defaults/agent
+
 {{/* Omarchy/Hyprland-only targets: keep them off non-Linux machines, where a
      bare `chezmoi apply` would otherwise write Linux configs into ~/.config.
      `.claude` stays managed everywhere. */}}

@@ -1,0 +1,9 @@
+# Global CLI tools installed via `mise use -g` on a fresh machine.
+# One spec per line; version pins and backend prefixes are passed through as-is.
+# Additive only: removing a line here does not uninstall it on existing machines.
+bun
+claude
+gh
+node@26.7.0
+npm:@xai-official/grok
+pi
